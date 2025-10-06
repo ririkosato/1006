@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+#game-container {
+    display: grid;
+    /* カードの数に合わせて列数を調整してください */
+    grid-template-columns: repeat(4, 100px); 
+    gap: 10px;
+    margin: 20px auto;
+    width: fit-content;
+    perspective: 1000px; /* 3D回転のために必要 */
+}
+
+.card {
+    width: 100px;
+    height: 140px;
+    position: relative;
+    transform-style: preserve-3d; /* 子要素も3D空間に配置 */
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+/* カードがめくられた状態 */
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* 回転した時に裏側を見せない */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+/* カードの裏面（ゲーム開始時の表示） */
+.card-back {
+    background-color: #007bff;
+    color: white;
+}
+
+/* カードの表面（めくった時の表示） */
+.card-front {
+    background-color: white;
+    color: #333;
+    transform: rotateY(180deg);
+}
+
+/* ペアが揃って非表示になったカード */
+.card.matched {
+    opacity: 0; /* 透明にして消えたように見せる */
+    pointer-events: none; /* クリック不可にする */
+}
